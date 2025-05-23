@@ -1,5 +1,5 @@
 <script>
     if (window.location.pathname === "/") {
-        window.location.href = "https://yourwebsite.com/home";
+        window.location.href = "/home"; // Change "/home" to your actual homepage path if different
     }
 </script>
