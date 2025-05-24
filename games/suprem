@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>SUPREM.IO - Battle Arena Game</title>
+    <link rel="stylesheet" href="static/styles.css?ver=0.1.6">
+    <link rel="stylesheet" href="static/css/mobile.css?ver=0.1.6">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="/static/images/favicon.png?ver=0.1.6"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="apple-touch-icon" href="/static/images/game-icon.png?ver=0.1.6"/>
+    <meta name="apple-mobile-web-app-status-bar" content="#ff6464">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta content="SUPREM.IO - Battle Arena Platformer Game" property="og:title">
+    <meta content="A new online battle arena platformer with tons of weapons and enthralling, high-pace gameplay. Play from your browser with your friends!" property="og:description">
+    <meta name="description" content="A new online battle arena platformer with tons of weapons and enthralling, high-pace gameplay. Play from your browser with your friends!">
+    <meta name="keywords" content="supremio, suprem, 2d battle arena, io, battle arena browser game, browser game, game, web game, multiplayer, supremeio, battle, arena, battle arena game, battle arena, fight, fight game, online fight game, online game, multiplayer fight game, multiplayer battle arena game, multiplayer battle, zomgman online, zomgman">
+    <meta content="SUPREM.IO" property="og:site_name">
+    <meta content="/static/images/game-icon.png?ver=0.1.6" property="og:image">
+    <meta name="theme-color" content="#ff6464">
+    
+    <!-- WHERE ARE WE? HOW DO WE GET OUT? -->
+
+    <script type="9ea9ae15355b9e3ad43c8fcc-text/javascript">
+        window.aiptag = window.aiptag || {cmd: []};
+        aiptag.cmd.display = aiptag.cmd.display || [];	aiptag.cmd.player = aiptag.cmd.player || [];
+        // Show GDPR consent tool
+        aiptag.gdprShowConsentTool = true;
+        // If you use your own GDPR consent tool please set aiptag.gdprConsent = false; if an EU user has declined or not yet accepted marketing cookies, for users outside the EU or for users that accepted the GDPR please use aiptag.gdprConsent = true;
+    
+        aiptag.cmd.player.push(function() {
+            adplayer = new aipPlayer({			
+                AD_WIDTH: 960,
+                AD_HEIGHT: 540,
+                AD_FULLSCREEN: false,
+                AD_CENTERPLAYER: false,
+                LOADING_TEXT: 'loading advertisement',
+                PREROLL_ELEM: function(){return document.getElementById('preroll')},
+                AIP_COMPLETE: function ()  {
+                    /*******************
+                     ***** WARNING *****
+                     *******************
+                     Please do not remove the PREROLL_ELEM
+                     from the page, it will be hidden automaticly.
+                     If you do want to remove it use the AIP_REMOVE callback.
+                    */
+                    alert("Ad Completed, load your content here");
+                },
+                AIP_REMOVE: function ()  {
+                    // Here it's save to remove the PREROLL_ELEM from the page if you want. But it's not recommend.
+                }		});
+        });
+    
+        function show_preroll() {
+            //check if the adslib is loaded correctly or blocked by adblockers etc.
+            if (typeof adplayer !== 'undefined') {
+                aiptag.cmd.player.push(function() { adplayer.startPreRoll(); });
+            } else {
+                //Adlib didnt load this could be due to an adblocker, timeout etc.
+                //Please add your script here that starts the content, this usually is the same script as added in AIP_COMPLETE or AIP_REMOVE.
+                alert("Ad Could not be loaded, load your content here");
+            }
+        }
+    </script>
+    <script async src="//api.adinplay.com/libs/aiptag/pub/CRM/suprem.io/tag.min.js" type="9ea9ae15355b9e3ad43c8fcc-text/javascript"></script>
+
+</head>
+
+<body>
+
+    <div id="user-interface-wrapper">
+        <div id="ad-wrapper-300x250">
+            <div id="menu-ad-wrapper-300x250" class="menu-wrapper-class-light menu-ad-wrapper">
+                <div class="menu-ad-placeholder-text"></div>
+                <div id='suprem-io_300x250'>
+                    <script type="9ea9ae15355b9e3ad43c8fcc-text/javascript">
+                        aiptag.cmd.display.push(function() { aipDisplayTag.display('suprem-io_300x250'); });
+                    </script>
+                </div>
+            </div>
+        </div>
+        
+        <div id="menu-ad-wrapper-728x90" class="menu-wrapper-class-light menu-ad-wrapper">
+            <div class="menu-ad-placeholder-text"></div>
+            <div id='suprem-io_728x90'>
+                <script type="9ea9ae15355b9e3ad43c8fcc-text/javascript">
+                    aiptag.cmd.display.push(function() { aipDisplayTag.display('suprem-io_728x90'); });
+                </script>
+            </div>
+        </div>
+        
+        <div id="user-interface"></div>
+    </div>
+    
+
+    <div id="game-wrapper">
+        <canvas id="game-canvas"></canvas>
+    </div>
+
+    
+    <div id="loading-wrapper" class="menu-wrapper">
+
+        <div id="loading-title" class=" loading-transparency-animation"></div>
+        
+        <div id="loading-spinner" class="spinner  loading-transparency-animation">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+
+        <div id="loading-message" class="menu-wrapper-class loading-transparency-animation">
+            Game not loading? Check your internet connection, and join the <a href="https://discord.gg/4MpEnM6">Discord Server</a> to reach out for help.
+        </div>
+    </div>
+
+    <script type="9ea9ae15355b9e3ad43c8fcc-text/javascript">
+        let resizeFunc = () => {
+            let scale = 1;
+            if (window.innerWidth < 466) {
+                scale *= window.innerWidth / 466;
+            }
+            if (window.innerHeight < 466 * scale) {
+                scale *= window.innerHeight / (466 * scale);
+            }
+            document.getElementById("loading-wrapper").style.fontSize = `${scale}em`;
+        };
+        window.onresize = resizeFunc;
+        resizeFunc();
+    </script>
+
+    <script type="9ea9ae15355b9e3ad43c8fcc-text/javascript" src="static/bundle.js?v=0.1.6"></script>
+
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="9ea9ae15355b9e3ad43c8fcc-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"944da8302acec481","version":"2025.4.0-1-g37f21b1","r":1,"token":"cad6bb106ca54ce9901491c864b430bc","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+
+</html>
